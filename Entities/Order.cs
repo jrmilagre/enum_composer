@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using Course.Entities;
 using Course.Entities.Enums;
 using System.Collections.Generic;
 using System.Text;
@@ -47,7 +46,7 @@ namespace Course.Entities
 
             foreach (OrderItem item in Items)
             {                
-                sum += item.SubTotal(item.Quantity, item.Price); ;
+                sum += item.SubTotal(); ;
             }
 
             return sum;
@@ -56,33 +55,15 @@ namespace Course.Entities
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine("ORDER SUMMARY:");
-            sb.Append("Order moment: ");
-            sb.AppendLine(Moment.ToString("dd/MM/yyyy HH:mm:ss"));
-            sb.Append("Client: ");
-            sb.Append(Client.Name);
-            sb.Append(" (");
-            sb.Append(Client.BirthDate.ToString("dd/MM/yyyy"));
-            sb.Append(") - ");
-            sb.AppendLine(Client.Email);
+            sb.AppendLine("Order moment: " + Moment.ToString("dd/MM/yyyy HH:mm:ss"));
+            sb.AppendLine("Order status: " + Status);
+            sb.AppendLine("Client: " + Client);
             sb.AppendLine("Order items:");
-
             foreach (OrderItem item in Items)
             {
-                sb.Append(item.Product.Name);
-                sb.Append(", $");
-                sb.Append(item.Price.ToString("F2", CultureInfo.InvariantCulture));
-                sb.Append(", Quantity: ");
-                sb.Append(item.Quantity);                
-                sb.Append(", Subtotal: $");
-                double subtotal = item.SubTotal(item.Quantity, item.Price);
-                sb.AppendLine(subtotal.ToString("F2", CultureInfo.InvariantCulture));              
+                sb.AppendLine(item.ToString());
             }
-
-            sb.Append("Total price: $");
-            sb.Append(this.Total().ToString("F2", CultureInfo.InvariantCulture));
-
+            sb.AppendLine("Total price: $" + Total().ToString("F2", CultureInfo.InvariantCulture));
             return sb.ToString();
         }
     }

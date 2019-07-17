@@ -43,6 +43,8 @@ namespace Course
                 o1.AddItem(item);
             }
 
+            Console.WriteLine();
+            Console.WriteLine("ORDER SUMMARY:");
             Console.WriteLine(o1);
         }
     }

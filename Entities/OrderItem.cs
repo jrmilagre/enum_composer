@@ -1,4 +1,6 @@
-﻿namespace Course.Entities
+﻿using System.Globalization;
+
+namespace Course.Entities
 {
     class OrderItem
     {
@@ -6,7 +8,6 @@
         public int Quantity { get; set; }
         public double Price { get; set; }
         public Product Product { get; set; }
-        public double Total { get; private set; }
 
         // #2 Construtor(es)
         public OrderItem() { }
@@ -19,10 +20,20 @@
         }
 
         // #3 Método(s)
-        public double SubTotal(int quantity, double price)
+        public double SubTotal()
         {
-            return quantity * price;
+            return Price * Quantity;
+        }
 
+        public override string ToString()
+        {
+            return Product.Name
+                + ", $"
+                + Price.ToString("F2", CultureInfo.InvariantCulture)
+                + ", Quantity: "
+                + Quantity
+                + ", Subtotal: $"
+                + SubTotal().ToString("F2", CultureInfo.InvariantCulture);
         }
     }
 }
